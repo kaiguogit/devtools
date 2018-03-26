@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# https://stackoverflow.com/questions/874452/change-the-current-directory-from-a-bash-script
+#
+# this script should not be run directly,
+# instead you need to source it from your .bashrc,
+# by adding this line:
+#   . ~/bin/gotoguishared
+#
+
+function gotoguishared() {
+    if [ -z "$1" ]; then
+        BRANCH=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+    else
+        BRANCH=$1
+    fi
+    cd ~/development/git/gui_shared/worktree/fos_$BRANCH
+}
+function gotofos() {
+    if [ -z "$1" ]; then
+        BRANCH=$(git symbolic-ref HEAD | sed -e 's,.*/fos_\(.*\),\1,')
+    else
+        BRANCH=$1
+    fi
+    cd ~/development/git/fos/worktree/$BRANCH
+}

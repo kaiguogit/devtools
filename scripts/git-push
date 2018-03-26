@@ -1,0 +1,19 @@
+#!/bin/bash
+# Push commit to remote branch that is tracked by current local branch
+# Equivalent to git push origin <commit>:refs/for/<remote_branch>
+# param: commit hash
+# Usage: git_push HEAD
+#     or git_push 990948b
+# Reference: https://stackoverflow.com/questions/2111042/how-to-get-the-name-of-the-current-git-branch-into-a-variable-in-a-shell-script
+
+if [ -z "$1" ]; then
+    COMMIT=HEAD
+else
+    COMMIT=$1
+fi
+
+BRANCH=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+REMOTE_BRANCH=$(git config --get "branch.$BRANCH.merge")
+
+git push origin $COMMIT:refs/for/"$REMOTE_BRANCH"

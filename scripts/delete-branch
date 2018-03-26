@@ -1,0 +1,31 @@
+#!/bin/bash
+# https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script
+# https://stackoverflow.com/questions/4749330/how-to-test-if-string-exists-in-file-with-bash-shell
+# https://superuser.com/questions/593694/use-cd-without-any-output/593697
+if [ -z "$1" ]; then
+    echo "Must provide a name to search"
+    exit
+else
+    NAME=$1
+fi
+
+cd ~/development/git/fos/fos
+if git branch | grep -q $NAME
+    then
+        echo "Found following branches:"
+        git branch | grep $NAME
+        echo "Do you wish to install these branches?"
+        select yn in "Yes" "No"
+        do
+            case $yn in
+                Yes )
+                    echo "Deleting"
+                    git wp
+                    git branch | grep $NAME | xargs git branch -D
+                    cd - > /dev/null; break;;
+                No ) cd - > /dev/null; exit;;
+            esac
+        done
+    else
+        echo "No branch found."
+fi
