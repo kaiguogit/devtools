@@ -14,7 +14,7 @@ if git branch | grep -q $NAME
     then
         echo "Found following branches:"
         git branch | grep $NAME
-        echo "Do you wish to install these branches?"
+        echo "Do you wish to delete these branches?"
         select yn in "Yes" "No"
         do
             case $yn in
