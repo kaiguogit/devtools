@@ -1,0 +1,41 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+auto lo
+iface lo inet loopback
+
+auto fgtprivatebr0
+auto fgtprivatebr1
+auto fgtprivatebr2
+auto enp1s0
+
+#iface enp1s0 inet dhcp
+
+iface fgtprivatebr0 inet static
+  address 172.27.4.24
+  netmask 255.255.255.0
+  gateway 172.27.4.1
+  dns-nameservers 172.16.100.100 172.16.100.80
+  bridge_ports enp1s0
+  bridge_stp off
+  bridge_maxwait 0
+  bridge_fd 0
+
+iface fgtprivatebr1 inet static
+  address 192.168.5.10
+  netmask 255.255.255.0
+  bridge_ports enp1s0
+  bridge_stp off
+  bridge_maxwait 0
+  bridge_fd 0
+
+iface fgtprivatebr2 inet static
+up ifconfig fgtprivatebr2 promisc
+  address 192.168.15.10
+  netmask 255.255.255.0
+  bridge_ports enp1s0
+  bridge_stp off
+  bridge_maxwait 0
+  bridge_fd 0
+down ifconfig fgtprivatebr2 promisc
