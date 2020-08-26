@@ -1,0 +1,4 @@
+#!/bin/bash
+git fsck
+git reflog expire --expire-unreachable=now --all
+g gc --prune=now
