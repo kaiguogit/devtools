@@ -66,12 +66,17 @@
         "command": "-workbench.view.debug"
     },
     {
-        "key": "ctrl+d",
+        "key": "ctrl+alt+d",
         "command": "editor.action.addSelectionToNextFindMatch"
     },
     {
-        "key": "ctrl+v",
-        "command": "pasteAndIndent.action",
-        "when": "editorTextFocus && !editorReadonly"
+        "key": "ctrl+d",
+        "command": "editor.action.moveSelectionToNextFindMatch",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+d",
+        "command": "-editor.action.moveSelectionToNextFindMatch",
+        "when": "editorFocus"
     }
 ]
