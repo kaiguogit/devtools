@@ -1,0 +1,32 @@
+# this script should not be run directly,
+# instead you need to source it from your .bashrc,
+# by adding this line:
+#   . ~/bin/prep_fortidemo
+#
+# arg1 = FortiDemo instance URL, arg2 = ssh port
+# E.g for xyz.fortidemo.fortinet.com:10424, call
+#     prep_fortidemo xyz.fortidemo.fortinet.com 10124
+prep_fortidemo() {
+	F_USER=kguo
+	PUBKEY_PATH="/home/kguo/.ssh/id_rsa.pub"
+	PARALLEL=3
+	if [ -z $1 -o -z $2 ]; then
+		echo "provide instance URL and ssh port"
+		echo "prep_fortidemo xyz.fortidemo.fortinet.com 10124"
+	else
+		ssh -o StrictHostKeyChecking=no -p $2 $F_USER@$1 << EOF
+config system admin
+edit $F_USER
+set ssh-public-key1 "$(cat $PUBKEY_PATH | tr -d \\n)"
+end
+config system global
+set admin-scp enable
+end
+EOF
+        fos-dev conf local
+		fos-dev conf set parallel $PARALLEL
+		fos-dev conf set fortigate_user $F_USER
+		fos-dev conf set ssh_port $2
+		fos-dev conf set fortigate $1
+	fi
+}
