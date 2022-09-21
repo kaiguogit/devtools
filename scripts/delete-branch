@@ -9,7 +9,7 @@ else
     NAME=$1
 fi
 
-cd ~/development/git/fos/fos
+cd ~/build/fos/fos
 if git branch | grep -q $NAME
     then
         echo "Found following branches:"
