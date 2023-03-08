@@ -1,0 +1,4 @@
+#!/bin/bash
+upstream_branch=git rev-parse --abbrev-ref --symbolic-full-name @{u}
+echo $upstream_branch
+# git merge-base | xclip -selection clipboard
