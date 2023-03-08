@@ -2,4 +2,4 @@
 #!/bin/bash
 upstream_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
 merge_base=$(git merge-base $upstream_branch HEAD)
-git rebase -i $merge_base
+git rebase -i --autosquash $merge_base
