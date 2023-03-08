@@ -1,3 +1,5 @@
+
 #!/bin/bash
 upstream_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
-git merge-base $upstream_branch HEAD | xclip -selection clipboard
+merge_base=$(git merge-base $upstream_branch HEAD)
+git rebase -i $merge_base
