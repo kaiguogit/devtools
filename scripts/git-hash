@@ -4,7 +4,7 @@ if [ -z "$1" ]; then
 else
     COMMIT=$1
 fi
-git show $COMMIT --summary
+# git show $COMMIT --summary
 HASH=$(git log --pretty=format:'%h' -n 1 $1)
 echo -n $HASH | xclip -selection clipboard
 
